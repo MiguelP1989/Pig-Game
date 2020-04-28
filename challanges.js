@@ -21,23 +21,20 @@ init();
 document.querySelector(".btn-roll").addEventListener("click", () => {
   if (gamePlaying) {
     // 1 random number
-    let dice = Math.floor(Math.random() * 6) + 1;
+    let dice1 = Math.floor(Math.random() * 6) + 1;
+    let dice2 = Math.floor(Math.random() * 6) + 1;
 
     // 2 display the result
-    let diceDOM = document.querySelector(".dice");
-    diceDOM.style.display = "block";
-    diceDOM.src = "./images/dice-" + dice + ".png";
+    document.getElementById("dice-1").style.display = "block";
+    document.getElementById("dice-2").style.display = "block";
+    document.getElementById("dice-1").src = "./images/dice-" + dice1 + ".png";
+    document.getElementById("dice-2").src = "./images/dice-" + dice2 + ".png";
 
     // 3 update the round score if the rolled number was not 1
 
-    if (dice === 6 && lastDice === 6) {
-      // player looses score
-      scores[activePlayer] = 0;
-      document.querySelector("#score-" + activePlayer).textContent = "0";
-      nextPlayer();
-    } else if (dice !== 1) {
+    if (dice1 !== 1 && dice2 !== 1) {
       //add score
-      roundScores += dice;
+      roundScores += dice1 + dice2;
       document.querySelector(
         "#current-" + activePlayer
       ).textContent = roundScores;
@@ -46,8 +43,6 @@ document.querySelector(".btn-roll").addEventListener("click", () => {
 
       nextPlayer();
     }
-
-    lastDice = dice;
   }
 });
 
@@ -74,7 +69,8 @@ document.querySelector(".btn-hold").addEventListener("click", () => {
     // check if the player won tge game
     if (scores[activePlayer] >= winningScore) {
       document.querySelector("#name-" + activePlayer).textContent = "winner!";
-      document.querySelector(".dice").style.display = "none";
+      document.getElementById("dice-1").style.display = "none";
+      document.getElementById("dice-2").style.display = "none";
       document
         .querySelector(".player-" + activePlayer + "-panel")
         .classList.add("winner");
@@ -102,7 +98,8 @@ function nextPlayer() {
   // document.querySelector(".player-0-panel").classList.remove("active");
   // document.querySelector(".player-1-panel").classList.add("active");
 
-  document.querySelector(".dice").style.display = "none";
+  document.getElementById("dice-1").style.display = "none";
+  document.getElementById("dice-2").style.display = "none";
 }
 
 document.querySelector(".btn-new").addEventListener("click", init);
@@ -118,7 +115,8 @@ function init() {
   document.getElementById("current-0").textContent = "0";
   document.getElementById("current-1").textContent = "0";
 
-  document.querySelector(".dice").style.display = "none";
+  document.getElementById("dice-1").style.display = "none";
+  document.getElementById("dice-2").style.display = "none";
 
   document.getElementById("name-0").textContent = "Player 1";
   document.getElementById("name-1").textContent = "Player 2";
