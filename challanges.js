@@ -60,9 +60,19 @@ document.querySelector(".btn-hold").addEventListener("click", () => {
     document.querySelector("#score-" + activePlayer).textContent =
       scores[activePlayer];
 
-    // check if the player won tge game
+    var input = document.querySelector(".final-score").value;
+    // console.log(input);
+    let winningScore;
+    // undefined, 0, null or "" are COERCED to false
+    // anything else is Coerced to TRUE
+    if (input) {
+      winningScore = input;
+    } else {
+      winningScore = 20;
+    }
 
-    if (scores[activePlayer] >= 20) {
+    // check if the player won tge game
+    if (scores[activePlayer] >= winningScore) {
       document.querySelector("#name-" + activePlayer).textContent = "winner!";
       document.querySelector(".dice").style.display = "none";
       document
